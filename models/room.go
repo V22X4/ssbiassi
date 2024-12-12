@@ -18,7 +18,7 @@ func (r *Room) CalculateOccupancyPercentage() map[string]float64 {
 
     for i := 0; i < 5; i++ {
         month := now.AddDate(0, i, 0)
-        monthKey := month.Format("2006-01")
+        monthKey := month.Format("2024-01")
         
         totalDays := daysInMonth(month)
         unavailableDays := 0
@@ -42,7 +42,7 @@ func (r *Room) GetNightRates(days int) map[string]float64 {
 
     for i := 0; i < days; i++ {
         date := now.AddDate(0, 0, i)
-        dateStr := date.Format("2006-01-02")
+        dateStr := date.Format("2024-01-01") //yyy-mm-dd
         if available, exists := r.AvailableDates[dateStr]; exists && available {
             rates = append(rates, r.RatePerNight)
         }

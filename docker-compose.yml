@@ -10,6 +10,11 @@ services:
       - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "5431:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   api:
     build: .
@@ -23,3 +28,8 @@ services:
       DB_USER: postgres
       DB_PASSWORD: password
       DB_NAME: airbnb_rooms
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
